@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Leaflet Track Viewer</title>
+
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    #map { height: 80vh; }
+    #controls {
+      padding: 10px;
+      background: #f5f5f5;
+      max-height: 20vh;
+      overflow-y: auto;
+    }
+    .folder {
+      margin-bottom: 12px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 6px;
+    }
+    .track-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="controls"></div>
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script type="module" src="main.js"></script>
+</body>
+</html>
