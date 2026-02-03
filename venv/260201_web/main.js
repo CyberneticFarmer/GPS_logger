@@ -1,5 +1,5 @@
 // ---- MAP ----
-const map = L.map("map").setView([61.185881, 5.987860], 16);
+const map = L.map("map").setView([68.1, 1.0], 16);
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: "© OpenStreetMap contributors"
