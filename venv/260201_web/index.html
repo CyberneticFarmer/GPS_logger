@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Leaflet Track Viewer</title>
+
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+    }
+
+    /* MAIN LAYOUT */
+    #layout {
+      display: grid;
+      grid-template-columns: 320px 1fr; /* left menu | map */
+      height: 100vh;
+    }
+
+    /* LEFT MENU */
+    #controls {
+      padding: 10px;
+      background: #f5f5f5;
+      overflow-y: auto;
+      border-right: 1px solid #bbb;
+    }
+    #controls-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #bbb;
+      display: flex;
+      align-items: center;   /* vertical */
+      justify-content: center; /* horizontal */
+    }
+
+    .folder {
+      margin-bottom: 12px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 6px;
+    }
+
+    .track-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 12px;
+    }
+
+    .rover-column {
+      background: #fff;
+      border: 1px solid #bbb;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    .rover-header,
+    .day-header {
+      cursor: pointer;
+      user-select: none;
+      font-weight: bold;
+    }
+
+    .rover-header {
+      margin-bottom: 6px;
+    }
+
+    .day-header {
+      margin-top: 6px;
+    }
+
+    .collapsed {
+      display: none;
+    }
+
+    /* MAP */
+    #map {
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="layout">
+    <div id="controls">
+        <div id="controls-title">🚜🌾HayPics</div>
+        <!-- existing dynamic content goes here -->
+    </div>
+    <div id="map"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script type="module" src="main.js"></script>
+
+</body>
+</html>
