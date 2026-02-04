@@ -2,6 +2,9 @@ import serial
 import threading
 from datetime import datetime, timedelta
 import math
+import platform
+
+system_os = platform.system()
 
 from serial_utils import find_gga_port
 from geo_utils import *
@@ -23,6 +26,7 @@ rovers = {
     "4" : "Massey",
     "5" : "Tesla"
 }
+
 def user_input_thread():
     global manual_save_requested, terminate_requested
     while True:
@@ -36,13 +40,14 @@ def user_input_thread():
         else:
             print("Ukjent kommando. Bruk 'l' eller 'stopp'.")
 def save_track(id):
-    if data[id]["coor"] is not None and data[id]["coor"] and (len(data[id]["coor"]) > 10):
-        file_path, start_time = create_new_file(base_dir, rovers[id])
+    if data[id]["coor"] is not None and data[id]["coor"] and (len(data[id]["coor"]) > 2):
+        file_path, start_time = create_new_file(base_dir, rovers[id], system_os)
+        print(file_path)
         write_geojson(file_path, data[id], "test", calculate_path_length(data[id]["coor"]))
         # Oppdater trackindex
         #print(file_path)
         indexPath = file_path.split(rovers[id])[0] + rovers[id] + "/trackIndex.js"
-        update_track_index(indexPath, str(start_time)[0:10], str(start_time)[11:19].replace(":", "-"), str(start_time)[11:19].replace(":", "-"), file_path, rovers[id])
+        update_track_index(indexPath, str(start_time)[0:10], str(start_time)[11:19].replace(":", "-"), str(start_time)[11:19].replace(":", "-"), data[id]["state"], rovers[id])
 
         # Tøm buffer og oppdater siste mottatte tid
     data[id]["last_received"] = datetime.now()
@@ -64,6 +69,7 @@ def check_timeout_saving():
 
 
 def main():
+    print( system_os)
     global manual_save_requested, terminate_requested
     baudrate, tol = 9600, 0.005  # 0.5 m
     raw_coords = []
@@ -102,7 +108,7 @@ def main():
                                 data[id]["coor"].append([res[2], res[1]])
                                 data[id]["last_received"] = now
                                 data[id]["start_time"] = now
-                                #print(data)
+                                data[id]["state"] = line[-1]
                             else:
                                 dist = haversine_distance(res[2], res[1], data[id]["coor"][-1][0], data[id]["coor"][-1][1])
                                 #print("Distanse " + str(dist))

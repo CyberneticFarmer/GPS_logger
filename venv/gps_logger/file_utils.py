@@ -104,3 +104,32 @@ def update_track_index(
         f.write(js_output)
 
     print(f"trackIndex.js updated: {track_id}")
+
+
+
+
+def write_positions_to_file(positions, path):
+    """
+    positions: [[lat, lng], [lat, lng], ...]
+    path: f.eks "vehicles.js"
+    """
+
+    lines = []
+    lines.append("// vehicles.js")
+    lines.append("const vehicles = [")
+
+    for i, (lat, lng) in enumerate(positions, start=1):
+        lines.append(
+            f'    {{ id: {i}, name: "Bil {i}", lat: {lat}, lng: {lng} }},'
+        )
+
+    # Fjern komma på siste element
+    if len(positions) > 0:
+        lines[-1] = lines[-1].rstrip(",")
+
+    lines.append("];")
+
+    content = "\n".join(lines)
+
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(content)

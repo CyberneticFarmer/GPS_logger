@@ -12,9 +12,17 @@ def create_new_file(base_dir):
     return os.path.join(base_dir, day_dir, fname), now
 """
 
-def create_new_file(base_dir, rover):
+def create_new_file(base_dir, rover, sys):
     now = datetime.now()
-    day_dir = "C:/Users/reidb/PycharmProjects/250609_KML_norgeskart/venv/260201_web/tracks/" + rover + "/"+ now.strftime("%Y-%m-%d")
+    print(sys)
+    if (sys == "Windows"):
+        day_dir = "C:/Users/reidb/PycharmProjects/250609_KML_norgeskart/venv/260201_web/tracks/" + rover + "/"+ now.strftime("%Y-%m-%d")
+    elif sys == "Linux":
+        day_dir = "/home/pi/GPS_logger/venv/260201_web/tracks/" + rover + "/"+ now.strftime("%Y-%m-%d")
+    else:
+        print("FEIL ved oppretting av filnavn i create_new_file")
+        exit()
+
     os.makedirs(os.path.join(base_dir, day_dir), exist_ok=True)
     fname = now.strftime("%H%M%S") + ".js"
     return os.path.join(base_dir, day_dir, fname), now
@@ -79,12 +87,13 @@ def update_track_index(
         date_str,
         track_id,
         label,
-        track_path,
+        state_rover,
         rover
 ):
     """
     Updates trackIndex.js by adding a new track entry.
     """
+    print(rover)
 
     # If file doesn't exist, create a new index
     if not os.path.exists(index_path):
@@ -113,7 +122,8 @@ def update_track_index(
     index_data[date_str].append({
         "id": track_id,
         "label": label,
-        "path": track_path
+        "path": track_path,
+        "state": str(state_rover)
     })
 
     # Write back JS file
