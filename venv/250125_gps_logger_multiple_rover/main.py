@@ -7,13 +7,14 @@ import platform
 system_os = platform.system()
 
 from serial_utils import find_gga_port
+from file_utils_sensor import *
 from geo_utils import *
 from file_utils import create_new_file, write_geojson, update_track_index, write_positions_to_file
 
 # Global kontrollvariabler
 manual_save_requested = False
 terminate_requested = False
-path_trackIndex = "C:/Users/reidb/PycharmProjects/250609_KML_norgeskart/venv/251220_webvisning/tracks/trackIndex.js"
+#path_trackIndex = "C:/venv/251220_webvisning/tracks/trackIndex.js"
 data = {}
 base_dir = "GPS_data"
 barn_coor = [61.185881, 5.987860]
@@ -116,6 +117,10 @@ def main():
                                     data[id]["coor"].append([res[2], res[1]])
                                     data[id]["last_received"] = now
                                     #print(data)
+                    elif line[0] == "<" and line[-1] == ">":
+                        print("Sensor analog: " + line)
+                        save_sensor_string_to_js(line)
+
                 ## Check how long since last received
 
                 if manual_save_requested:

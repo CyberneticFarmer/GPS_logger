@@ -17,6 +17,9 @@ def find_gga_port(baudrate=115200, timeout=20, search_duration=3):
                     if line[1:6] == ",GGA,":
                         print(f"Fant GGA-data på {p.device}")
                         return p.device
+                    elif line[0] == "<":
+                        print(f"Fant analog data på {p.device}")
+                        return p.device
         except Exception:
             pass
     print("Fant ingen gyldig port.")
