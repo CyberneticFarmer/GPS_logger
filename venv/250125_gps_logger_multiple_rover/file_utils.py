@@ -19,7 +19,7 @@ def create_new_file(base_dir, rover, sys):
         day_dir = "C:/Users/reidb/PycharmProjects/250609_KML_norgeskart/venv/260201_web/tracks/" + rover + "/"+ now.strftime("%Y-%m-%d")
         print("HELLO")
     elif sys == "Linux":
-        day_dir = "/home/pi/GPS_logger/venv/260201_web/tracks/" + rover + "/"+ now.strftime("%Y-%m-%d")
+        day_dir = "/var/www/html/rover/tracks/" + rover + "/"+ now.strftime("%Y-%m-%d")
     else:
         print("FEIL ved oppretting av filnavn i create_new_file")
         exit()
