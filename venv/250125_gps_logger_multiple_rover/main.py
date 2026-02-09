@@ -117,9 +117,10 @@ def main():
                                     data[id]["coor"].append([res[2], res[1]])
                                     data[id]["last_received"] = now
                                     #print(data)
-                    elif line[0] == "<" and line[-1] == ">":
+                    #elif line[0] == "<" and line[-1] == ">":
+                    elif line[0] == "<" and (line[-1] == ">" or line[-2] == ">"):
                         print("Sensor analog: " + line)
-                        save_sensor_string_to_js(line)
+                        save_sensor_string_to_js(line, system_os)
 
                 ## Check how long since last received
 

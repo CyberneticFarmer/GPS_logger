@@ -2,7 +2,7 @@ import json
 from datetime import datetime, timezone
 import os
 
-def save_sensor_string_to_js(input_string):
+def save_sensor_string_to_js(input_string, sys):
     # Ensure folder exists
     if (sys == "Windows"):
         folder = "C:/Users/reidb/PycharmProjects/250609_KML_norgeskart/venv/260209_web_analog/data"
